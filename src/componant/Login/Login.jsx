@@ -57,7 +57,7 @@ const Login = () => {
         </button>
         <button onClick={()=>{
             navigate("/register")
-        }} type="button" className="w-full py-2 bg-blue-600 rounded text-gray-200 mt-4 hover:bg-blue-400 duration-300 text-sm">Register Insted</button>
+        }} type="button" className="w-full py-2 bg-blue-400 rounded text-gray-200 mt-4 hover:bg-blue-500 duration-300 text-sm">Register Insted</button>
       </form>
 
     </div>

@@ -6,6 +6,7 @@ import Dashboard from "../componant/Dashboard/Dashboard";
 import Sendmoney from "../componant/Sendmoney/Sendmoney";
 import DashboardLayout from "../componant/Dashboard/DashboardLayout";
 import Login from "../componant/Login/Login";
+import PrivateRoute from "./PrivateRoute";
 
 const routes = createBrowserRouter([
   {
@@ -28,7 +29,11 @@ const routes = createBrowserRouter([
   },
   {
     path: "dashboard",
-    element: <DashboardLayout />,
+    element: (
+      <PrivateRoute>
+        <DashboardLayout />
+      </PrivateRoute>
+    ),
     children: [
       {
         index: true,

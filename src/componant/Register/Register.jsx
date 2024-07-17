@@ -3,20 +3,20 @@ import { useSearchParams } from "react-router-dom";
 
 const Register = () => {
   const [registerAs, setRegisterAs] = useState("user");
-  const [searchParams] = useSearchParams();
+  const [searchParams, setSearchParams] = useSearchParams();
 
-  useEffect(()=>{
-    if(searchParams.get("agent")){
-        setRegisterAs("agent")
+  useEffect(() => {
+    if (searchParams.get("agent")) {
+      setRegisterAs("agent");
+    } else {
+      setRegisterAs("user");
     }
-    else{
-        setRegisterAs("user")
-    }
-  },[searchParams])
+  }, [searchParams]);
 
   const handleSubmit = (e) => {
-    e.preventDefault()
-}
+    e.preventDefault();
+  };
+
 
 
   return (
@@ -24,7 +24,10 @@ const Register = () => {
       <p className="text-2xl mb-4">রেজিস্টার</p>
       <div className="*:px-2 *:py-2 text-xl font-bold *:rounded">
         <button
-          onClick={() => setRegisterAs("user")}
+          onClick={() => {
+            setRegisterAs("user");
+            setSearchParams("");
+          }}
           className={`mr-2 ${
             registerAs === "user" ? "bg-blue-100" : "bg-gray-300"
           }`}>
@@ -53,7 +56,7 @@ const Register = () => {
           <p>ইমেইল:</p>
           <input
             className="outline-none rounded-md px-2 py-1"
-            type="text"
+            type="email"
             name=""
             id=""
             placeholder=""
@@ -79,7 +82,7 @@ const Register = () => {
             placeholder=""
           />
         </div>
-        <button className="w-full py-2 bg-blue-500 rounded text-gray-200 mt-2">
+        <button className="w-full py-2 bg-blue-500 rounded text-gray-200 mt-2 hover:bg-blue-400 duration-300">
           রেজিস্টার
         </button>
       </form>

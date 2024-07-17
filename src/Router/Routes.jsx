@@ -5,6 +5,7 @@ import Register from "../componant/Register/Register";
 import Dashboard from "../componant/Dashboard/Dashboard";
 import Sendmoney from "../componant/Sendmoney/Sendmoney";
 import DashboardLayout from "../componant/Dashboard/DashboardLayout";
+import Login from "../componant/Login/Login";
 
 const routes = createBrowserRouter([
   {
@@ -18,6 +19,10 @@ const routes = createBrowserRouter([
       {
         path: "register",
         element: <Register />,
+      },
+      {
+        path: "login",
+        element: <Login />,
       },
     ],
   },

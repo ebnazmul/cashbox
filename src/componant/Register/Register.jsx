@@ -1,9 +1,13 @@
 import { useEffect, useState } from "react";
-import { useSearchParams } from "react-router-dom";
+import toast from "react-hot-toast";
+import { useNavigate, useSearchParams } from "react-router-dom";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
 
 const Register = () => {
   const [registerAs, setRegisterAs] = useState("user");
+  const axiosSecure = useAxiosSecure();
   const [searchParams, setSearchParams] = useSearchParams();
+  const navigate = useNavigate()
 
   useEffect(() => {
     if (searchParams.get("agent")) {
@@ -13,12 +17,25 @@ const Register = () => {
     }
   }, [searchParams]);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async(e) => {
+
     e.preventDefault();
-    
+    const form = e.target;
+    if (form.pin.value < 9999) {
+      return toast.error("Pin must be minimum 5 digit");
+    }
+
+    const res = await axiosSecure.post("/register", {
+      role: registerAs,
+      name: form.name.value,
+      email: form.email.value,
+      phone: form.phone.value,
+      pin: form.pin.value,
+    })
+
+    console.log(res);
+
   };
-
-
 
   return (
     <div className="py-20 flex flex-col items-center justify-center">
@@ -48,9 +65,8 @@ const Register = () => {
           <input
             className="outline-none rounded-md px-2 py-1"
             type="text"
-            name=""
-            id=""
-            placeholder=""
+            name="name"
+            required
           />
         </div>
         <div className="mb-2">
@@ -58,19 +74,17 @@ const Register = () => {
           <input
             className="outline-none rounded-md px-2 py-1"
             type="email"
-            name=""
-            id=""
-            placeholder=""
+            name="email"
+            required
           />
         </div>
         <div className="mb-2">
           <p>ফোন:</p>
           <input
             className="outline-none rounded-md px-2 py-1"
-            type="text"
-            name=""
-            id=""
-            placeholder=""
+            type="number"
+            name="phone"
+            required
           />
         </div>
         <div className="mb-2">
@@ -78,14 +92,16 @@ const Register = () => {
           <input
             className="outline-none rounded-md px-2 py-1"
             type="number"
-            name=""
-            id=""
-            placeholder=""
+            name="pin"
+            required
           />
         </div>
         <button className="w-full py-2 bg-blue-500 rounded text-gray-200 mt-2 hover:bg-blue-400 duration-300">
           রেজিস্টার
         </button>
+        <button onClick={()=>{
+            navigate("/login")
+        }} type="button" className="w-full py-2 bg-blue-600 rounded text-gray-200 mt-4 hover:bg-blue-400 duration-300 text-sm">Login Insted</button>
       </form>
     </div>
   );
